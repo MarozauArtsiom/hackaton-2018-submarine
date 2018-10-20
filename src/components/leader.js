@@ -48,19 +48,20 @@ export class LederBoard extends Component {
     
     console.log("componentDidMount");
     
-    httpGet("http://192.168.43.226:6969/leaders").then((data) => this.setState({leaders: data}));
-    
+    httpGet("http://192.168.43.226:6969/leaders").then((data) => {
+      this.setState({leaders: JSON.parse(data)})
+    });
   }
 
   render() {
+    let { leaders } = this.state;
     return (
       <List slyle={styles.container}>
         {
-          list.map((item) => (
+          leaders && leaders.map((item, index) => (
             <ListItem
-              key={item.title}
-              title={item.title}
-              leftIcon={{ name: item.icon }}
+              key={item.name}
+              title={item.surName}
             />
           ))
         }
