@@ -1,6 +1,6 @@
 import React from 'react';
 import { ScrollView, View, Text, StyleSheet, Image } from 'react-native';
-import { Avatar, Button } from 'react-native-elements';
+import { Avatar, Button, Text as MatText } from 'react-native-elements';
 
 export class Profile extends React.Component {
 
@@ -22,7 +22,8 @@ export class Profile extends React.Component {
                 alcohol: '',
                 cigarettes: '',
                 parasiteWords: ''
-            }
+            },
+            isLoading: true
         };
         this.setUpFetchVariables();
     }
@@ -64,9 +65,25 @@ export class Profile extends React.Component {
 
     componentDidMount() {
         this.uploadData();
+
+        setTimeout(() => {
+            this.setState({
+              isLoading: false
+            });
+          }, 1000);
     }
 
     render() {
+
+        if (this.state.isLoading) {
+            return (
+              <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <MatText h2>Снова тупит...</MatText>
+              </View>
+            );
+          }
+
+
         return (
             <ScrollView>
                 <View style={styles.mainLayout}>

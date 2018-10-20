@@ -11,7 +11,8 @@ export class Listener extends React.Component {
             isListen: false,
             recording: false,
             partialResults: [],
-            wordCount: ''
+            wordCount: '',
+            isLoading: true
         };
 
         this.REQUEST_POST = 'http://192.168.43.226:6969/check-for-parasite';
@@ -20,6 +21,14 @@ export class Listener extends React.Component {
         Voice.onSpeechPartialResults  = this.onSpeechPartialResultsHandler.bind(this);
         Voice.onSpeechEnd = this.onSpeechEndHandler.bind(this);
     }
+
+    componentDidMount() {
+        setTimeout(() => {
+          this.setState({
+            isLoading: false
+          });
+        }, 1000);
+      }
 
     async onListen() {
         try {
@@ -72,6 +81,14 @@ export class Listener extends React.Component {
     }
 
     render() {
+        if (this.state.isLoading) {
+            return (
+              <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <Text h2>Тупит...</Text>
+              </View>
+            );
+          }
+
         return (
             <View style={styles.container}>
                 <View style={styles.btnGroup}>

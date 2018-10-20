@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ScrollView, StyleSheet, View, Button, Alert, Text, Modal } from 'react-native';
-import { Avatar, List, ListItem } from 'react-native-elements';
+import { Avatar, List, ListItem, Text as MatText } from 'react-native-elements';
 
 const list = [
   {
@@ -40,7 +40,8 @@ export class LederBoard extends Component {
     super(props);
 
     this.state = {
-      leaders: []
+      leaders: [],
+      isLoading: true
     };
   }
 
@@ -51,10 +52,24 @@ export class LederBoard extends Component {
     httpGet("http://192.168.43.226:6969/leaders").then((data) => {
       this.setState({ leaders: JSON.parse(data) })
     });
+
+    setTimeout(() => {
+      this.setState({
+        isLoading: false
+      });
+    }, 1000);
   }
 
   render() {
     let { leaders } = this.state;
+    if (this.state.isLoading) {
+      return (
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <MatText h2>Да харэ тупить...</MatText>
+        </View>
+      );
+    }
+
     return (
       <ScrollView>
         <View style={styles.mainLayout}>
