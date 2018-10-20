@@ -6,8 +6,14 @@ var url = "mongodb://localhost:27017/mydb";
 
 var outlier = require('outlier');
 
-var bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded());
+var bodyParser = require('body-parser')
+parasites = ['ну', 'ээ', 'дурак', 'тупой', 'дибил', 'сволоч'];
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// parse application/json
+app.use(bodyParser.json())
 
 const users = require('./defaultUsers.js').users
 
@@ -33,30 +39,16 @@ MongoClient.connect(url, async function (err, db) {
   dbo.createCollection("profile", function (err, res) {
     if (err) throw err;
     console.log("Collection created!");
-    dbo.collection('profile').find({ name: 'Artsiom' }).toArray(function (err, result) {
+    dbo.collection('profile').find().toArray(function (err, result) {
       if (err) throw err;
       if (!result.length) {
         dbo.collection('profile').insertMany(users, (err) => {
           if (err) throw err
           db.close()
+          console.log("Profile: Collection created!");
         })
       }
     });
-  });
-});
-
-MongoClient.connect(url, async function (err, db) {
-  if (err) throw err;
-  var dbo = null;
-  dbo = db.db("mydb");
-  // await dbo.dropCollection('profile')
-  dbo.createCollection("parasite", async function (err, res) {
-    if (err) throw err;
-    console.log("Parasite: Collection created!");
-    let parasite = (await dbo.collection('parasite').find()).toArray();
-    if (parasite.length) {
-      dbo.collection('parasite').insertMany([['бля', 'пиздец', 'ебать', 'ну', 'ээ', 'pidor', 'пидр']])
-    }
   });
 });
 
@@ -83,17 +75,37 @@ function getCurrentProfile(req) {
   })
 }
 
- // datepart: 'y', 'm', 'w', 'd', 'h', 'n', 's'
- Date.dateDiff = function(datepart, fromdate, todate) {	
-  datepart = datepart.toLowerCase();	
-  var diff = todate - fromdate;	
-  var divideBy = { w:604800000, 
-                   d:86400000, 
-                   h:3600000, 
-                   n:60000, 
-                   s:1000 };	
-  
-  return Math.floor( diff/divideBy[datepart]);
+async function getVocabulary(profileId) {
+  let { dbo, db } = await connectToMongo()
+  let vocabulary = (await dbo.collection('vocabulary')
+    .findOne({ profileId: profileId }));
+  let newVocabulary = false;
+  if (!vocabulary) {
+    vocabulary = { profileId: profileId, word: {} };
+    newVocabulary = true;
+  }
+  if (newVocabulary) {
+    await dbo.collection('vocabulary').insertOne(vocabulary)
+  } else {
+    await dbo.collection('vocabulary').updateOne({ profileId: profileId }, { $set: vocabulary });
+  }
+  db.close();
+  return vocabulary;
+}
+
+// datepart: 'y', 'm', 'w', 'd', 'h', 'n', 's'
+Date.dateDiff = function (datepart, fromdate, todate) {
+  datepart = datepart.toLowerCase();
+  var diff = todate - fromdate;
+  var divideBy = {
+    w: 604800000,
+    d: 86400000,
+    h: 3600000,
+    n: 60000,
+    s: 1000
+  };
+
+  return Math.floor(diff / divideBy[datepart]);
 }
 
 // #region requests
@@ -128,24 +140,6 @@ app.post('/profile', async (req, res) => {
   })
 })
 
-async function getVocabulary(profileId) {
-  let { dbo, db } = await connectToMongo()
-  let vocabulary = (await dbo.collection('vocabulary')
-    .findOne({ profileId: profile.id }));
-  let newVocabulary = false;
-  if (!vocabulary) {
-    vocabulary = { profileId: profile.id, word: {} };
-    newVocabulary = true;
-  }
-  if (newVocabulary) {
-    await dbo.collection('vocabulary').insertOne(vocabulary)
-  } else {
-    await dbo.collection('vocabulary').updateOne({ profileId: profile.id }, vocabulary);
-  }
-  db.close();
-  return vocabulary;
-}
-
 app.get('/my-vocabulary-statistics', async (req, res) => {
   let profile = await getCurrentProfile();
   let vocabulary = await getVocabulary(profile.id);
@@ -155,7 +149,7 @@ app.get('/my-vocabulary-statistics', async (req, res) => {
 })
 
 app.post('/check-for-parasite', async (req, res) => {
-  console.log(req.body, res.body);
+  console.log(req.body.phrase)
   let newWords = req.body.phrase.split(' ').map(x => x.toLowerCase());
   let profile = await getCurrentProfile();
   let vocabulary = await getVocabulary(profile.id);
@@ -168,31 +162,26 @@ app.post('/check-for-parasite', async (req, res) => {
       words[word] = 1;
     }
   })
-  await dbo.collection('vocabulary').updateOne({ profileId: profile.id }, { word: words });
+  await dbo.collection('vocabulary').updateOne({ profileId: profile.id }, { $set: { word: words } });
 
-  let parasites = (await dbo.collection('parasites').find()).toArray();
   let countParasites = 0;
 
-  let arr = [...parasites, ...newWords].sort()
-
-  for (let i = 1; i < arr.length; i++) {
-    if (arr[i - 1] === arr[i] || (arr[i].includes('**'))) {
+  newWords.forEach(w => {
+    if (w.includes('**') || parasites.includes(w)) {
       countParasites++;
     }
-  }
-
-  if (arr[0].includes('**')) {
-    countParasites++;
-  }
+  })
 
   if (countParasites > 0) {
     await dbo.collection('profile').updateOne(
       { id: profile.id },
       {
-        lastParasiteWordUsed: new Date(),
-        daysWithout: {
-          ...profile.daysWithout,
-          parasiteWords: 0
+        $set: {
+          lastParasiteWordUsed: new Date(),
+          daysWithout: {
+            ...profile.daysWithout,
+            parasiteWords: 0
+          }
         }
       }
     )
@@ -200,6 +189,7 @@ app.post('/check-for-parasite', async (req, res) => {
 
   db.close();
 
+  console.log('count is: ', String(countParasites))
   res.send(String(countParasites));
 })
 

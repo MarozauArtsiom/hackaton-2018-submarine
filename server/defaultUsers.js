@@ -3,7 +3,7 @@ const users = [
     id: 'id',
     name: 'Артем',
     surName: 'Морозов',
-    avatarUrl: `https://www.shareicon.net/data/128x128/2016/05/24/770039_man_512x512.png`,
+    avatarUrl: `https://vignette.wikia.nocookie.net/casualheroes/images/c/c3/Mc_icon_gopnik.png/revision/latest?cb=20171003123749&path-prefix=ru`,
     description: 'Mam ama criminal',
     age: 24,
     daysWithout: {
@@ -17,7 +17,7 @@ const users = [
     id: 'dima',
     name: 'Дима',
     surName: 'Соколовский',
-    avatarUrl: `https://www.google.by/url?sa=i&source=imgres&cd=&cad=rja&uact=8&ved=2ahUKEwjuyqzxjJXeAhUNvxoKHSGKBLoQjRx6BAgBEAU&url=https%3A%2F%2Fwww.winhelponline.com%2Fblog%2Freplace-default-user-account-picture-avatar-windows-10%2F&psig=AOvVaw2CKwQNQjyuMbTcUYRga936&ust=1540127690599360`,
+    avatarUrl: `https://banner2.kisspng.com/20180510/idw/kisspng-gopnik-drawing-hardbass-slavs-squatting-position-5af42730618637.5823137515259502563995.jpg`,
     description: 'Mam ama criminal',
     age: 29,
     daysWithout: {
@@ -25,27 +25,13 @@ const users = [
       cigarettes: 0,
       parasiteWords: 0,
     },
-    lastParasiteWordUsed: 'Sat Oct 20 2018 17:10:31 GMT+0300 (Moscow Standard Time)'
-  },
-  {
-    id: 'timur',
-    name: 'Тимур',
-    surName: 'Соколовский',
-    avatarUrl: `https://banner2.kisspng.com/20180402/bje/kisspng-computer-icons-avatar-login-user-avatar-5ac207e69ecd41.2588125315226654466505.jpg`,
-    description: 'Mam ama criminal',
-    age: 60,
-    daysWithout: {
-      alcohol: 15,
-      cigarettes: 0,
-      parasiteWords: 0,
-    },
-    lastParasiteWordUsed: 'Sat Oct 20 2018 17:10:31 GMT+0300 (Moscow Standard Time)'
+    lastParasiteWordUsed: 'Sat Oct 20 2018 17:15:31 GMT+0300 (Moscow Standard Time)'
   },
   {
     id: 'aliaksandrA',
     name: 'Саша',
     surName: 'Акулич',
-    avatarUrl: `https://www.google.by/url?sa=i&source=imgres&cd=&cad=rja&uact=8&ved=2ahUKEwjuyqzxjJXeAhUNvxoKHSGKBLoQjRx6BAgBEAU&url=https%3A%2F%2Fwww.winhelponline.com%2Fblog%2Freplace-default-user-account-picture-avatar-windows-10%2F&psig=AOvVaw2CKwQNQjyuMbTcUYRga936&ust=1540127690599360`,
+    avatarUrl: `https://pchel.net/files/users/ransom00/portfolio/thumbs/gopnik.png`,
     description: 'Mam ama criminal',
     age: 28,
     daysWithout: {
@@ -53,7 +39,7 @@ const users = [
       cigarettes: 0,
       parasiteWords: 0,
     },
-    lastParasiteWordUsed: 'Sat Oct 20 2018 17:10:31 GMT+0300 (Moscow Standard Time)'
+    lastParasiteWordUsed: 'Sat Oct 20 2018 17:20:31 GMT+0300 (Moscow Standard Time)'
   },
   {
     id: 'aliaksandrL',
@@ -67,7 +53,21 @@ const users = [
       cigarettes: 0,
       parasiteWords: 0,
     },
-    lastParasiteWordUsed: 'Sat Oct 20 2018 17:10:31 GMT+0300 (Moscow Standard Time)'
+    lastParasiteWordUsed: 'Sat Oct 20 2018 17:50:31 GMT+0300 (Moscow Standard Time)'
+  },
+  {
+    id: 'timur',
+    name: 'Тимур',
+    surName: 'Соколовский',
+    avatarUrl: `https://banner2.kisspng.com/20180625/by/kisspng-gopnik-drawing-art-5b310552e7df63.3987057315299392829498.jpg`,
+    description: 'Mam ama criminal',
+    age: 60,
+    daysWithout: {
+      alcohol: 15,
+      cigarettes: 0,
+      parasiteWords: 0,
+    },
+    lastParasiteWordUsed: 'Sat Oct 20 2018 18:10:31 GMT+0300 (Moscow Standard Time)'
   },
   {
     id: 'aliaksandrD',
@@ -81,7 +81,7 @@ const users = [
       cigarettes: 0,
       parasiteWords: 0,
     },
-    lastParasiteWordUsed: 'Sat Oct 20 2018 17:10:31 GMT+0300 (Moscow Standard Time)'
+    lastParasiteWordUsed: 'Sat Oct 20 2018 18:15:31 GMT+0300 (Moscow Standard Time)'
   },
   {
     id: 'kirilrD',
@@ -95,7 +95,7 @@ const users = [
       cigarettes: 0,
       parasiteWords: 0,
     },
-    lastParasiteWordUsed: 'Sat Oct 20 2018 17:10:31 GMT+0300 (Moscow Standard Time)'
+    lastParasiteWordUsed: 'Sat Oct 20 2018 18:25:31 GMT+0300 (Moscow Standard Time)'
   },
   {
     id: 'maksP',
@@ -109,7 +109,7 @@ const users = [
       cigarettes: 0,
       parasiteWords: 0,
     },
-    lastParasiteWordUsed: 'Sat Oct 20 2018 17:10:31 GMT+0300 (Moscow Standard Time)'
+    lastParasiteWordUsed: 'Sat Oct 20 2018 18:35:31 GMT+0300 (Moscow Standard Time)'
   },
   {
     id: 'krisP',
@@ -123,7 +123,7 @@ const users = [
       cigarettes: 0,
       parasiteWords: 0,
     },
-    lastParasiteWordUsed: 'Sat Oct 20 2018 17:10:31 GMT+0300 (Moscow Standard Time)'
+    lastParasiteWordUsed: 'Sat Oct 20 2018 18:50:31 GMT+0300 (Moscow Standard Time)'
   },
   {
     id: 'dashaP',
@@ -137,7 +137,7 @@ const users = [
       cigarettes: 0,
       parasiteWords: 0,
     },
-    lastParasiteWordUsed: 'Sat Oct 20 2018 17:10:31 GMT+0300 (Moscow Standard Time)'
+    lastParasiteWordUsed: 'Sat Oct 20 2018 18:50:31 GMT+0300 (Moscow Standard Time)'
   }
 ];
 
