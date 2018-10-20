@@ -79,7 +79,7 @@ export class Profile extends React.Component {
                         />
                     </View>
                     <View style={styles.personalLayout}>
-                        <Text>{this.state.name} {this.state.surName}, {this.state.age} years old</Text>
+                        <Text style={styles.personalInfo}>{this.state.name} {this.state.surName}, {this.state.age} years old</Text>
                         
                     </View>
                     <View style={styles.description}>
@@ -105,32 +105,40 @@ const styles = StyleSheet.create({
         backgroundColor: 'white'
     },
     avatarWrapper: {
-        width: 250,
-        height: 250,
+        marginTop: 30,
+        width: 270,
+        height: 270,
         borderWidth: 10,
-        borderColor: 'white',
-        borderRadius: 125
+        borderColor: 'gray',
+        borderRadius: 135,
+        flex:1,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     avatar: {
     },
     description: {
         width: '90%',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
         marginTop: 15,
         paddingLeft: 30,
         paddingRight: 30,
     },
     descriptionText: {
-        fontSize: 25,
-        color: white
+        fontSize: 17,
+        color: "black"
     },
     personalLayout: {
+        marginTop: 30,
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
     },
     personalInfo: {
-        color: white,
-        fontSize: 35
+        color: "black",
+        fontSize: 25
     },
     daysWithoutContainer: {
         width: '100%'
