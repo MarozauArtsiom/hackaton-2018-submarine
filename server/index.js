@@ -20,10 +20,11 @@ function connectToMongo() {
   })
 }
 
-MongoClient.connect(url, function (err, db) {
+MongoClient.connect(url, async function (err, db) {
   if (err) throw err;
   var dbo = null;
   dbo = db.db("mydb");
+  // await dbo.dropCollection('profile')
   dbo.createCollection("profile", function (err, res) {
     if (err) throw err;
     console.log("Collection created!");
@@ -44,13 +45,20 @@ app.get('/', (req, res) => {
   res.send('смотри исходники в папке сервер')
 })
 
-app.get('/profile', async function (req, res) {
-  let { dbo, db } = await connectToMongo()
-  dbo.collection('profile').findOne({}, (err, result) => {
-    if (err) throw err
-    res.send(result)
-    db.close()
+function getCurrentProfile(req) {
+  return new Promise(async (resolve, reject) => {
+    let { dbo, db } = await connectToMongo()
+    dbo.collection('profile').findOne({}, (err, result) => {
+      if (err) throw err
+      db.close()
+      resolve(result)
+    })
   })
+}
+
+app.get('/profile', async function (req, res) {
+  let result = await getCurrentProfile(req)
+  res.send(result)
 })
 
 app.get('/leaders', async function (req, res) {
@@ -65,6 +73,24 @@ app.get('/leaders', async function (req, res) {
 app.post('/profile', async (req, res) => {
   let { dbo, db } = await connectToMongo()
   dbo.collection('profile').insertOne(req.body.profile, (err) => {
+    if (err) throw err
+    db.close()
+    res.send('ok')
+  })
+})
+
+app.post('/add-parasite-word', async (req, res) => {
+  let current = await getCurrentProfile(req)
+  let { dbo, db } = await connectToMongo()
+  dbo.collection('profile').updateOne({ id: current.id }, {
+    $set: {
+      daysWithout: {
+        ...current.daysWithout,
+        parasiteWords: 0
+      },
+      lastParasiteWordUsed: new Date()
+    }
+  }, (err) => {
     if (err) throw err
     db.close()
     res.send('ok')
