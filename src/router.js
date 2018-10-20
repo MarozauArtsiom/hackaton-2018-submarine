@@ -78,7 +78,7 @@ const PrimaryRouter = DrawerNavigator({
   Leaders: { 
     screen: LederBoard,
     navigationOptions: {
-        drawerLabel: 'Дворовые пацантрЭ',
+        drawerLabel: 'Дворовые пацаны',
         headerMode: 'screen',
     },
 }

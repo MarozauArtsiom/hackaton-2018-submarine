@@ -49,6 +49,11 @@ export class Listener extends React.Component {
 
     async onStopRecord(e) {
         try {
+            
+            this.setState({
+                wordCount: 0,
+            });
+
             await Voice.stop();
         } catch(err) {
             alert('ERROR');
@@ -119,7 +124,7 @@ export class Listener extends React.Component {
                     : null
                 }
                 <Text h4>Сказал {this.state.wordCount} матюков</Text>
-                <Text h3>{ this.state.wordCount > 0 ? 'Следи за базаром!!!' : null }</Text>
+                <Text h3 style={{ color: 'red' }}>{ this.state.wordCount > 0 ? 'Следи за базаром!!!' : null }</Text>
             </View>
         );
     }
