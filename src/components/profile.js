@@ -68,6 +68,7 @@ export class Profile extends React.Component {
     uploadData() {
         const onProfileFetchSuccess = (response) => {
             const newState = JSON.parse(response);
+            newState.lastParasiteWordUsed = new Date(newState.lastParasiteWordUsed);
             this.setState(newState);
         }
         const onProfileFetchFailed = (err) => {
@@ -166,12 +167,12 @@ export class Profile extends React.Component {
         }
         let num;
         if(startIndex === 0) {
-            num = secDif;
+            num = secDiff;
         } else {
-            num = secDif / a[startIndex - 1];
+            num = secDiff / a[startIndex - 1];
         }
         const b = Math.floor(num);
-        const c = this.toText(startIndex);
+        const c = this.toText(b,startIndex);
         return b + ' ' + c;
     }
 
@@ -179,12 +180,12 @@ export class Profile extends React.Component {
         let result;
         if(this.state.lastParasiteWordUsed.getFullYear() === 1970) {
             result = (
-                <View style={styles.daysWithoutContainer}><Text>Тёмная лошадка</Text></View>);
+                <View style={{fontSize: 27}}><Text>Тёмная лошадка</Text></View>);
         } else {
             result = (
                 <View style={styles.daysWithoutContainer}>
-                    <Text style={styles.daysWithoutDescription}>Следит за базаром</Text>
-                    <Text>{this.getTreeMaxGranylarity()}</Text>
+                    <Text style={{fontSize: 27}}>Следит за базаром</Text>
+                    <Text style={{fontSize: 21}}>{this.getTreeMaxGranylarity()}</Text>
                 </View>
             );
         }
@@ -258,7 +259,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'white',
-        minHeight: '100%'
     },
     avatarWrapper: {
         marginTop: 30,
@@ -299,6 +299,9 @@ const styles = StyleSheet.create({
     daysWithoutContainer: {
         width: '100%',
         marginTop: 50,
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: "center"
     },
     daysWithoutDescription: {
         fontSize: 15
