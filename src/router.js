@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import { Button } from 'react-native-elements';
 import { DrawerNavigator, DrawerItems, StackNavigator } from 'react-navigation';
-import { LederBoard, Listener } from './components';
+import { LederBoard, Listener, Profile } from './components';
 
 class HomeScreen extends React.Component {
    
@@ -29,6 +29,13 @@ const PrimaryRouter = DrawerNavigator({
           drawerLabel: 'Check bad words',
           headerMode: 'screen',
       },
+  },
+  Profile: { 
+    screen: Profile,
+    navigationOptions: {
+        drawerLabel: 'Profile',
+        headerMode: 'screen',
+    },
   },
   Leaders: { 
     screen: LederBoard,

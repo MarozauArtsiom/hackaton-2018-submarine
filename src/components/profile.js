@@ -1,3 +1,7 @@
+import React from 'react';
+import {ScrollView, View, Text, StyleSheet} from 'react-native';
+import {Avatar, Button} from 'react-native-elements';
+
 export class Profile extends React.Component {
 
     setUpFetchVariables() {
@@ -6,17 +10,18 @@ export class Profile extends React.Component {
     }
 
     constructor(props) {
+        super(props);
         this.state = {
-            id,
-            name,
-            surName,
-            description,
-            avatarUrl,
-            age,
+            id: null,
+            name: '',
+            surName: '',
+            description: '',
+            avatarUrl: '',
+            age: '',
             daysWithout: {
-                alcohol,
-                cigarettes,
-                parasiteWords
+                alcohol: '',
+                cigarettes: '',
+                parasiteWords: ''
             }
         };
         this.setUpFetchVariables();
@@ -40,6 +45,7 @@ export class Profile extends React.Component {
     render() {
         return (
             <ScrollView>
+                <View style={styles.mainLayout}>
                 <Avatar
                     rounded
                     medium
@@ -56,16 +62,17 @@ export class Profile extends React.Component {
                 <View style={styles.daysWithoutContainer}>
                     <Text style={styles.daysWithoutDescription}>Days Without alcohol</Text>
                     <Text>{this.state.daysWithout.alcohol}</Text>
-                    <Button>Today i don't drink alcohol</Button>
+                    <Button title="Today i don't drink alcohol" onPress={() => {}}/>
                 </View>
                 <View style={styles.daysWithoutContainer}>
                     <Text style={styles.daysWithoutDescription}>Days Without smoking</Text>
                     <Text>{this.state.daysWithout.cigarettes}</Text>
-                    <Button>Today i don't smoke</Button>
+                    <Button title="Today i don't smoke" onPress={() => {}} />
                 </View>
                 <View style={styles.daysWithoutContainer}>
                     <Text style={styles.daysWithoutDescription}>Days Without parasite words</Text>
                     <Text>{this.state.daysWithout.parasiteWords}</Text>
+                </View>
                 </View>
             </ScrollView>
         )
@@ -75,8 +82,9 @@ export class Profile extends React.Component {
 const styles = StyleSheet.create({
     mainLayout: {
         flex: 1,
-        flexDirection: 'horisontal',
-        justifyContent: 'center';
+        //flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     avatar: {
     },
@@ -87,7 +95,7 @@ const styles = StyleSheet.create({
         borderColor: '#000000'
     },
     descriptionText: {
-        fontSize: '20'
+        fontSize: 20
     },
     personalLayout: {
 
@@ -97,10 +105,10 @@ const styles = StyleSheet.create({
         width: '100%'
     },
     daysWithoutDescription: {
-        fontSize: '15'
+        fontSize: 15
     },
     daysWithoutValue: {
-        fontSize: '15'
+        fontSize: 15
     },
     daysWithoutIncrementButton: {
 
