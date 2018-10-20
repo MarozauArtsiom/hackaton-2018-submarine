@@ -9,12 +9,14 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
 
+import { Routing } from './src/router';
+
 
 export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
-        
+        <Routing />
       </View>
     );
   }
