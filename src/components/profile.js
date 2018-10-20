@@ -79,28 +79,36 @@ export class Profile extends React.Component {
                         />
                     </View>
                     <View style={styles.personalLayout}>
-                        <Text style={styles.personalInfo}>{this.state.name} {this.state.surName}, {this.state.age} years old</Text>
-                        
+                        <Text style={styles.personalInfo}>{this.state.name} {this.state.surName}, {this.state.age} лет</Text>
+
                     </View>
                     <View style={styles.description}>
                         <Text style={styles.descriptionText}>{this.state.description}</Text>
                     </View>
-                    
+
                     <View style={styles.daysWithoutContainer}>
                         <Text style={styles.daysWithoutDescription}>Следишь за базаром</Text>
-                        <View style={styles.daysWithoutValuesContainer}>
-                            <Text style={styles.daysWithoutValue}>{this.state.daysWithout.parasiteWords}</Text>
-                            <Text style={styles.daysWithoutGranularity}>Лет</Text>
-                        </View>
-                        <View style={styles.verticalDelimetr}></View>
-                        <View>
-                            <Text style={styles.daysWithoutValue}>{this.state.daysWithout.parasiteWords}</Text>
-                            <Text style={styles.daysWithoutGranularity}>месяцев</Text>
-                        </View>
-                        <View style={styles.verticalDelimetr}></View>
-                        <View>
-                            <Text style={styles.daysWithoutValue}>{this.state.daysWithout.parasiteWords}</Text>
-                            <Text style={styles.daysWithoutGranularity}>Дней</Text>
+                        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
+                            <View style={styles.daysWithoutValueLayout}>
+                                <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center' }}>
+                                    <Text style={styles.daysWithoutValue}>{this.state.daysWithout.parasiteWords}</Text>
+                                    <Text style={styles.daysWithoutGranularity}>Лет</Text>
+                                </View>
+                            </View>
+                            <View style={styles.verticalDelimetr}></View>
+                            <View style={styles.daysWithoutValueLayout}>
+                                <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center' }}>
+                                    <Text style={styles.daysWithoutValue}>{this.state.daysWithout.parasiteWords}</Text>
+                                    <Text style={styles.daysWithoutGranularity}>месяцев</Text>
+                                </View>
+                            </View>
+                            <View style={styles.verticalDelimetr}></View>
+                            <View style={styles.daysWithoutValueLayout}>
+                                <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center' }}>
+                                    <Text style={styles.daysWithoutValue}>{this.state.daysWithout.parasiteWords}</Text>
+                                    <Text style={styles.daysWithoutGranularity}>Дней</Text>
+                                </View>
+                            </View>
                         </View>
                     </View>
                 </View>
@@ -116,7 +124,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'white',
-        minHeight: 100%
+        minHeight: '100%'
     },
     avatarWrapper: {
         marginTop: 30,
@@ -125,7 +133,7 @@ const styles = StyleSheet.create({
         borderWidth: 10,
         borderColor: 'gray',
         borderRadius: 135,
-        flex:1,
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
     },
@@ -156,7 +164,7 @@ const styles = StyleSheet.create({
     },
     daysWithoutContainer: {
         width: '100%',
-        marginTop: 50
+        marginTop: 50,
     },
     daysWithoutDescription: {
         fontSize: 15
@@ -164,20 +172,25 @@ const styles = StyleSheet.create({
     daysWithoutValuesContainer: {
         flex: 1,
         flexDirection: 'row',
-        justifyContent: "space-between"
+        justifyContent: 'space-between',
+        height: 90
+    },
+    daysWithoutValueLayout: {
+        width: '30%',
+        height: 90
     },
     daysWithoutValue: {
         fontSize: 25,
-        color: 'black';
+        color: 'black'
     },
     daysWithoutGranularity: {
         color: 'gray',
-        fontSize: '13'
+        fontSize: 13
     },
     verticalDelimetr: {
-        borderWidth: 1,
+        borderWidth: 2,
         borderColor: 'black',
-        height: 27,
+        height: 70,
         width: 0
     }
 })
