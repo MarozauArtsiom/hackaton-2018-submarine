@@ -1,6 +1,6 @@
 import React from 'react';
-import {ScrollView, View, Text, StyleSheet} from 'react-native';
-import {Avatar, Button} from 'react-native-elements';
+import { ScrollView, View, Text, StyleSheet } from 'react-native';
+import { Avatar, Button } from 'react-native-elements';
 
 export class Profile extends React.Component {
 
@@ -25,6 +25,28 @@ export class Profile extends React.Component {
             }
         };
         this.setUpFetchVariables();
+        this.uploadData();
+    }
+
+    httpGet(url) {
+        return new Promise(function (resolve, reject) {
+            let xhr = new XMLHttpRequest();
+            xhr.open('GET', url, true);
+            xhr.onload = function () {
+                const status = 200;
+                if (this.status === status) {
+                    resolve(xhr.responseText);
+                } else {
+                    var error = new Error(this.statusText);
+                    error.code = this.status;
+                    reject(error);
+                }
+            };
+            xhr.onerror = function () {
+                reject(new Error('Network Error'));
+            };
+            xhr.send();
+        });
     }
 
     uploadData() {
@@ -46,33 +68,33 @@ export class Profile extends React.Component {
         return (
             <ScrollView>
                 <View style={styles.mainLayout}>
-                <Avatar
-                    rounded
-                    medium
-                    source={{uri: `data:image/png;base64,${this.state.avatarUrl}`}}
-                />
-                <View style={styles.description}>
-                    <Text style={styles.descriptionText}>{this.state.text}</Text>
-                </View>
-                <View style={styles.personalLayout}>
-                    <Text>{this.state.name}</Text>
-                    <Text>{this.state.surName}</Text>
-                    <Text>{this.state.age}</Text>
-                </View>
-                <View style={styles.daysWithoutContainer}>
-                    <Text style={styles.daysWithoutDescription}>Days Without alcohol</Text>
-                    <Text>{this.state.daysWithout.alcohol}</Text>
-                    <Button title="Today i don't drink alcohol" onPress={() => {}}/>
-                </View>
-                <View style={styles.daysWithoutContainer}>
-                    <Text style={styles.daysWithoutDescription}>Days Without smoking</Text>
-                    <Text>{this.state.daysWithout.cigarettes}</Text>
-                    <Button title="Today i don't smoke" onPress={() => {}} />
-                </View>
-                <View style={styles.daysWithoutContainer}>
-                    <Text style={styles.daysWithoutDescription}>Days Without parasite words</Text>
-                    <Text>{this.state.daysWithout.parasiteWords}</Text>
-                </View>
+                    <Avatar
+                        rounded
+                        medium
+                        source={{ uri: `data:image/png;base64,${this.state.avatarUrl}` }}
+                    />
+                    <View style={styles.description}>
+                        <Text style={styles.descriptionText}>{this.state.text}</Text>
+                    </View>
+                    <View style={styles.personalLayout}>
+                        <Text>{this.state.name}</Text>
+                        <Text>{this.state.surName}</Text>
+                        <Text>{this.state.age}</Text>
+                    </View>
+                    <View style={styles.daysWithoutContainer}>
+                        <Text style={styles.daysWithoutDescription}>Days Without alcohol</Text>
+                        <Text>{this.state.daysWithout.alcohol}</Text>
+                        <Button title="Today i don't drink alcohol" onPress={() => { }} />
+                    </View>
+                    <View style={styles.daysWithoutContainer}>
+                        <Text style={styles.daysWithoutDescription}>Days Without smoking</Text>
+                        <Text>{this.state.daysWithout.cigarettes}</Text>
+                        <Button title="Today i don't smoke" onPress={() => { }} />
+                    </View>
+                    <View style={styles.daysWithoutContainer}>
+                        <Text style={styles.daysWithoutDescription}>Days Without parasite words</Text>
+                        <Text>{this.state.daysWithout.parasiteWords}</Text>
+                    </View>
                 </View>
             </ScrollView>
         )
