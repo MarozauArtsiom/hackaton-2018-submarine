@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Image } from 'react-native';
+import { View, Image, TouchableOpacity, Text as RText } from 'react-native';
 import { DrawerNavigator, DrawerItems, StackNavigator } from 'react-navigation';
 import { LederBoard, Listener, Profile } from './components';
 import { Text } from 'react-native-elements';
@@ -30,13 +30,24 @@ class HomeScreen extends React.Component {
         );
       }
 
+      // varikPress() {
+      //   console.log(this.props);
+      //   this.props.navigation.navigate('DrawerOpen');
+      // }
+
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white' }}>
-          <Text h3>Убей в себе гопника, ёпта!</Text>
+          <Text h2 fontFamily="Galsten">Убей в себе гопника, ёпта!</Text>
           <Image 
                 style={{width: '100%', height: '60%'}}
                 source={{uri: 'https://avatanplus.com/files/resources/mid/588edef0a1872159ee16dc16.png'}}
               />
+          <TouchableOpacity onPress={() => this.props.navigation.openDrawer()}>
+          <View style={{backgroundColor: 'black', paddingVertical: 10, paddingHorizontal: 20, borderRadius: 7}}>
+          <Text h3 style={{ color: 'white' }}>Паказать варики</Text>
+          </View>
+          </TouchableOpacity>
+          
         </View>
       );
     }
@@ -79,7 +90,7 @@ export const Router = StackNavigator({
     headerMode: 'float',
     navigationOptions: ({navigation}) => ({
       headerStyle: {backgroundColor: 'white'},
-      title: 'Pocket gopnic',
+      title: 'Антигопник',
       headerTintColor: 'black',
     }),
     
