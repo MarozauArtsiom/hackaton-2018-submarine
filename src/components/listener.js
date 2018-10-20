@@ -13,8 +13,8 @@ export class Listener extends React.Component {
         };
 
         Voice.onSpeechStart = this.onSpeechStartHandler.bind(this);
-        Voice._onSpeechPartialResults = this.onSpeechPartialResultsHandler.bind(this);
-        Voice._onSpeechEnd = this.onSpeechEndHandler.bind(this);
+        Voice.onSpeechPartialResults  = this.onSpeechPartialResultsHandler.bind(this);
+        Voice.onSpeechEnd = this.onSpeechEndHandler.bind(this);
     }
 
     async onListen() {
@@ -28,6 +28,7 @@ export class Listener extends React.Component {
     onSpeechStartHandler(e) {
         this.setState({
             isListen: true,
+            recording: 'Recording',
         });
     }
 
@@ -40,14 +41,16 @@ export class Listener extends React.Component {
     }
 
     onSpeechPartialResultsHandler(e) {
+        console.log(e.value);
         this.setState({
-            partialResults: e.value
+            partialResults: e.value[0]
         });
     }
 
     onSpeechEndHandler(e) {
         this.setState({
-            recording: 'Stopped'
+            recording: 'Stopped',
+            isListen: false
         });
     }
 
@@ -71,11 +74,7 @@ export class Listener extends React.Component {
                     </TouchableOpacity>
                 </View>
                 <Text>{this.state.recording}</Text>
-                {
-                    partialResults.map((item, index) => {
-                        <Text key={'sub' + index}>{item}</Text>
-                    })
-                }
+                <Text>{this.state.partialResults}</Text>
             </View>
         );
     }
