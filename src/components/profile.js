@@ -1,6 +1,6 @@
 import React from 'react';
-import {ScrollView, View, Text, StyleSheet} from 'react-native';
-import {Avatar, Button} from 'react-native-elements';
+import { ScrollView, View, Text, StyleSheet, Image } from 'react-native';
+import { Avatar, Button } from 'react-native-elements';
 
 export class Profile extends React.Component {
 
@@ -27,52 +27,67 @@ export class Profile extends React.Component {
         this.setUpFetchVariables();
     }
 
+    httpGet(url) {
+        return new Promise(function (resolve, reject) {
+            let xhr = new XMLHttpRequest();
+            xhr.open('GET', url, true);
+            xhr.onload = function () {
+                const status = 200;
+                if (this.status === status) {
+                    resolve(xhr.responseText);
+                } else {
+                    var error = new Error(this.statusText);
+                    error.code = this.status;
+                    reject(error);
+                }
+            };
+            xhr.onerror = function () {
+                reject(new Error('Network Error'));
+            };
+            xhr.send();
+        });
+    }
+
     uploadData() {
         const onProfileFetchSuccess = (response) => {
-            const json = response.json();
-            const newState = response;
+            const newState = JSON.parse(response);
             this.setState(newState);
         }
         const onProfileFetchFailed = (err) => {
             this.setState({});
         }
-        fetch(this.BASE_FETCH_URL + this.PROFILE_FETCH_URL).then(
+        this.httpGet(this.BASE_FETCH_URL + this.PROFILE_FETCH_URL).then(
             onProfileFetchSuccess,
             onProfileFetchFailed
         );
+    }
+
+    componentDidMount() {
+        this.uploadData();
     }
 
     render() {
         return (
             <ScrollView>
                 <View style={styles.mainLayout}>
-                <Avatar
-                    rounded
-                    medium
-                    source={{uri: `data:image/png;base64,${this.state.avatarUrl}`}}
-                />
-                <View style={styles.description}>
-                    <Text style={styles.descriptionText}>{this.state.text}</Text>
-                </View>
-                <View style={styles.personalLayout}>
-                    <Text>{this.state.name}</Text>
-                    <Text>{this.state.surName}</Text>
-                    <Text>{this.state.age}</Text>
-                </View>
-                <View style={styles.daysWithoutContainer}>
-                    <Text style={styles.daysWithoutDescription}>Days Without alcohol</Text>
-                    <Text>{this.state.daysWithout.alcohol}</Text>
-                    <Button title="Today i don't drink alcohol" onPress={() => {}}/>
-                </View>
-                <View style={styles.daysWithoutContainer}>
-                    <Text style={styles.daysWithoutDescription}>Days Without smoking</Text>
-                    <Text>{this.state.daysWithout.cigarettes}</Text>
-                    <Button title="Today i don't smoke" onPress={() => {}} />
-                </View>
-                <View style={styles.daysWithoutContainer}>
-                    <Text style={styles.daysWithoutDescription}>Days Without parasite words</Text>
-                    <Text>{this.state.daysWithout.parasiteWords}</Text>
-                </View>
+                    <View style={styles.avatarWrapper}>
+                        <Avatar
+                            rounded
+                            title='A'
+                            height={250}
+                            source={{ uri: this.state.avatarUrl }}
+                        />
+                    </View>
+                    <View style={styles.personalLayout}>
+                        <Text>{this.state.name} {this.state.surName}, {this.state.age}</Text>
+                    </View>
+                    <View style={styles.description}>
+                        <Text style={styles.descriptionText}>{this.state.description}</Text>
+                    </View>
+                    <View style={styles.daysWithoutContainer}>
+                        <Text style={styles.daysWithoutDescription}>Days Without parasite words</Text>
+                        <Text>{this.state.daysWithout.parasiteWords}</Text>
+                    </View>
                 </View>
             </ScrollView>
         )
@@ -85,22 +100,36 @@ const styles = StyleSheet.create({
         //flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor: 'white'
+    },
+    avatarWrapper: {
+        width: 250,
+        height: 250,
+        borderWidth: 10,
+        borderColor: 'white',
+        borderRadius: 125
     },
     avatar: {
     },
     description: {
         width: '90%',
-        borderRadius: 4,
-        borderWidth: 1,
-        borderColor: '#000000'
+        marginTop: 15,
+        paddingLeft: 30,
+        paddingRight: 30,
     },
     descriptionText: {
-        fontSize: 20
+        fontSize: 25,
+        color: white
     },
     personalLayout: {
-
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
-
+    personalInfo: {
+        color: white,
+        fontSize: 35
+    },
     daysWithoutContainer: {
         width: '100%'
     },
