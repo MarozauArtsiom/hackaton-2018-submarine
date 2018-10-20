@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, View, Text, StyleSheet } from 'react-native';
+import { ScrollView, View, Text, StyleSheet, Image } from 'react-native';
 import { Avatar, Button } from 'react-native-elements';
 
 export class Profile extends React.Component {
@@ -70,8 +70,7 @@ export class Profile extends React.Component {
         return (
             <ScrollView>
                 <View style={styles.mainLayout}>
-                    <Avatar
-                        rounded
+                    <Image
                         avatarStyle={styles.avatar}
                         source={{ uri: this.state.avatarUrl }}
                     />
@@ -111,7 +110,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     avatar: {
-        width: '35%'
+        width: 210,
+        height: 210,
+        borderRadius: 210
     },
     description: {
         width: '90%',
