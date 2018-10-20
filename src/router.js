@@ -2,6 +2,7 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import { Button } from 'react-native-elements';
 import { DrawerNavigator, DrawerItems, StackNavigator } from 'react-navigation';
+import { LederBoard, Listener } from './components';
 
 class HomeScreen extends React.Component {
    
@@ -13,16 +14,6 @@ class HomeScreen extends React.Component {
       );
     }
   }
-  
-  class SettingsScreen extends React.Component {
-    render() {
-      return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <Text>Settings!</Text>
-        </View>
-      );
-    }
-}
 
 const PrimaryRouter = DrawerNavigator({
   Home: { 
@@ -32,13 +23,20 @@ const PrimaryRouter = DrawerNavigator({
           headerMode: 'screen',
       }
   },
-  SettingsScreen: { 
-      screen: SettingsScreen,
+  Listener: { 
+      screen: Listener,
       navigationOptions: {
-          drawerLabel: 'Main Form',
+          drawerLabel: 'Check bad words',
           headerMode: 'screen',
       },
-  }
+  },
+  Leaders: { 
+    screen: LederBoard,
+    navigationOptions: {
+        drawerLabel: 'Leader Bord',
+        headerMode: 'screen',
+    },
+}
 });
 
 export const Router = StackNavigator({
@@ -46,10 +44,9 @@ export const Router = StackNavigator({
   {
     headerMode: 'float',
     navigationOptions: ({navigation}) => ({
-      headerStyle: {backgroundColor: '#4C3E54'},
-      title: 'Welcome!',
-      headerTintColor: 'white',
-      headerLeft: <Button title="Menu" onPress={() => navigation.navigate('DrawerOpen')}/>
+      headerStyle: {backgroundColor: 'white'},
+      title: 'Pocket gopnic',
+      headerTintColor: 'black',
     }),
     
   }
