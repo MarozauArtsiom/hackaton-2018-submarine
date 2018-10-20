@@ -57,7 +57,7 @@ const PrimaryRouter = DrawerNavigator({
   Home: { 
       screen: HomeScreen,
       navigationOptions: {
-          drawerLabel: 'На старт',
+          drawerLabel: 'Да хаты',
           headerMode: 'screen',
       }
   },
@@ -71,7 +71,7 @@ const PrimaryRouter = DrawerNavigator({
   Profile: { 
     screen: Profile,
     navigationOptions: {
-        drawerLabel: 'Личное дело',
+        drawerLabel: 'Мои корки',
         headerMode: 'screen',
     },
   },
@@ -90,7 +90,7 @@ export const Router = StackNavigator({
     headerMode: 'float',
     navigationOptions: ({navigation}) => ({
       headerStyle: {backgroundColor: 'white'},
-      title: 'Антигопник',
+      title: 'IT Гопник',
       headerTintColor: 'black',
     }),
     
