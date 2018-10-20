@@ -70,28 +70,19 @@ export class Profile extends React.Component {
         return (
             <ScrollView>
                 <View style={styles.mainLayout}>
-                    <Avatar
-                        xlarge
-                        rounded
-                        title='A'
-                        source={{ uri: this.state.avatarUrl }}
-                    />
+                    <View style={styles.avatarWrapper}>
+                        <Avatar
+                            rounded
+                            title='A'
+                            height={250}
+                            source={{ uri: this.state.avatarUrl }}
+                        />
+                    </View>
                     <View style={styles.personalLayout}>
-                        <Text>{this.state.name} {this.state.surName}</Text>
-                        <Text>{this.state.age}</Text>
+                        <Text>{this.state.name} {this.state.surName}, {this.state.age}</Text>
                     </View>
                     <View style={styles.description}>
                         <Text style={styles.descriptionText}>{this.state.description}</Text>
-                    </View>
-                    <View style={styles.daysWithoutContainer}>
-                        <Text style={styles.daysWithoutDescription}>Days Without alcohol</Text>
-                        <Text>{this.state.daysWithout.alcohol}</Text>
-                        <Button title="Today i don't drink alcohol" onPress={() => { }} />
-                    </View>
-                    <View style={styles.daysWithoutContainer}>
-                        <Text style={styles.daysWithoutDescription}>Days Without smoking</Text>
-                        <Text>{this.state.daysWithout.cigarettes}</Text>
-                        <Button title="Today i don't smoke" onPress={() => { }} />
                     </View>
                     <View style={styles.daysWithoutContainer}>
                         <Text style={styles.daysWithoutDescription}>Days Without parasite words</Text>
@@ -109,25 +100,35 @@ const styles = StyleSheet.create({
         //flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor: 'white'
+    },
+    avatarWrapper: {
+        width: 250,
+        height: 250,
+        borderWidth: 10,
+        borderColor: 'white',
+        borderRadius: 125
     },
     avatar: {
-        width: 210,
-        height: 210,
-        borderRadius: 210
     },
     description: {
         width: '90%',
-        borderRadius: 4,
-        borderWidth: 1,
-        borderColor: '#000000'
+        marginTop: 15,
+        paddingLeft: 30,
+        paddingRight: 30,
     },
     descriptionText: {
-        fontSize: 20
+        fontSize: 25,
+        color: white
     },
     personalLayout: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    personalInfo: {
+        color: white,
+        fontSize: 35
     },
     daysWithoutContainer: {
         width: '100%'
