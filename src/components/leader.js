@@ -71,7 +71,7 @@ export class LederBoard extends Component {
     }
 
     return (
-      <ScrollView>
+      <ScrollView style={{backgroundColor:'blue'}}>
         <View style={styles.mainLayout}>
           <List slyle={styles.container}>
             {
@@ -83,14 +83,23 @@ export class LederBoard extends Component {
                     source={{ uri: item.avatarUrl }}
                   />}
                   key={item.id}
-                  
+
                   title={
-                    <View>
-                      <Text >{item.name}</Text>
-                      <Text >{item.surName}</Text>
+                    <View style={{ paddingLeft: 15, width: '100%' }}>
+                      <View style={{flex:1, flexDirection: 'row', justifyContent: 'space-between', alignItems:'center'}}>
+                        <View>
+                          <Text style={{ fontSize: 23 }}>{item.name}</Text>
+                          <Text style={{ fontSize: 23 }}>{item.surName}</Text>
+                        </View>
+                        <View>
+                          <Text style={{fontSize: 19}}>{item.daysWithout.parasiteWords}</Text>
+                        </View>
+                      </View>
                     </View>
                   }
+                  // rightIcon={{name: 'comment'}}
                   hideChevron
+                // rightTitle={String(item.daysWithout.parasiteWords)}
                 />
               ))
             }
