@@ -70,17 +70,18 @@ export class Profile extends React.Component {
         return (
             <ScrollView>
                 <View style={styles.mainLayout}>
-                    <Image
-                        avatarStyle={styles.avatar}
+                    <Avatar
+                        xlarge
+                        rounded
+                        title='A'
                         source={{ uri: this.state.avatarUrl }}
                     />
-                    <View style={styles.description}>
-                        <Text style={styles.descriptionText}>{this.state.text}</Text>
-                    </View>
                     <View style={styles.personalLayout}>
-                        <Text>{this.state.name}</Text>
-                        <Text>{this.state.surName}</Text>
+                        <Text>{this.state.name} {this.state.surName}</Text>
                         <Text>{this.state.age}</Text>
+                    </View>
+                    <View style={styles.description}>
+                        <Text style={styles.descriptionText}>{this.state.description}</Text>
                     </View>
                     <View style={styles.daysWithoutContainer}>
                         <Text style={styles.daysWithoutDescription}>Days Without alcohol</Text>
@@ -124,9 +125,10 @@ const styles = StyleSheet.create({
         fontSize: 20
     },
     personalLayout: {
-
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
-
     daysWithoutContainer: {
         width: '100%'
     },
