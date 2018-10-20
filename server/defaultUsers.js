@@ -12,7 +12,8 @@ const users = [
       alcohol: 15,
       cigarettes: 'never',
       parasiteWords: 0
-    }
+    },
+    lastParasiteWordUsed: null
   },
   {
     id: 'dima',
@@ -25,7 +26,8 @@ const users = [
       alcohol: 15,
       cigarettes: 0,
       parasiteWords: 0,
-    }
+    },
+    lastParasiteWordUsed: null
   }
 ];
 
