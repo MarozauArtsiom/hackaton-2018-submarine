@@ -67,8 +67,8 @@ export class LederBoard extends Component {
                     rounded
                     source={{ uri: item.avatarUrl }}
                   />}
-                  key={item.name}
-                  title={item.surName}
+                  key={item.id}
+                  title={`${item.name} ${item.surName}`}
                 />
               ))
             }
