@@ -17,15 +17,31 @@ export class Profile extends React.Component {
             surName: '',
             description: '',
             avatarUrl: '',
-            age: '',
+            age: null,
             daysWithout: {
                 alcohol: '',
                 cigarettes: '',
                 parasiteWords: ''
             },
-            isLoading: true
+            isLoading: true,
+            lastParasiteWordUsed: new Date(null)
         };
         this.setUpFetchVariables();
+        // datepart: 'y', 'm', 'w', 'd', 'h', 'n', 's'
+        Date.dateDiff = function (datepart, fromdate, todate) {
+            datepart = datepart.toLowerCase();
+            var diff = todate - fromdate;
+            var divideBy = {
+                w: 604800000,
+                d: 86400000,
+                h: 3600000,
+                n: 60000,
+                s: 1000
+            };
+
+            return Math.floor(diff / divideBy[datepart]);
+        }
+
     }
 
     httpGet(url) {
@@ -73,6 +89,108 @@ export class Profile extends React.Component {
           }, 1000);
     }
 
+    getTextAge(age) {
+        if(!age) {
+            return '';
+        }
+        var txt;
+        count = age % 100;
+        if (count >= 5 && count <= 20) {
+            txt = 'лет';
+        } else {
+            count = count % 10;
+            if (count == 1) {
+                txt = 'год';
+            } else if (count >= 2 && count <= 4) {
+                txt = 'года'; 12
+            } else {
+                txt = 'лет';
+            }
+        }
+        return txt;
+    }
+
+    toText(sec, ind) {
+        const variants = [
+            ['секунд', 'секунду', 'секунды'],
+            ['минут', 'минуту', 'минуты'],
+            ['часов', 'час', 'часа'],
+            ['дней', 'день', 'дня'],
+            ['недель', 'неделю', 'недели'],
+            ['месяцев', 'месяц', 'месяца']
+            ['лет', 'год', 'года']
+        ]
+        var txt;
+        count = sec % 100;
+        if (count >= 5 && count <= 20) {
+            txt = variants[ind][0];
+        } else {
+            count = count % 10;
+            if (count == 1) {
+                txt = variants[ind][1];
+            } else if (count >= 2 && count <= 4) {
+                txt = variants[ind][2];
+            } else {
+                txt = variants[ind][0];
+            }
+        }
+        return txt;
+    }
+
+    getTreeMaxGranylarity() {
+        const fromDate = new Date(this.state.lastParasiteWordUsed);
+        secDiff = Date.dateDiff('s', fromDate, new Date());
+        let startIndex;
+        const a = [
+            60,
+            (60 * 60),
+            (24 * 60 * 60),
+            (7 * 24 * 60 * 60),
+            (6 *  7 * 24 * 60 * 60),
+            (12 * 6 *  7 * 24 * 60 * 60)
+        ]
+        if (secDiff / 60 < 1) {
+            startIndex = 0;
+        } else if (secDiff / (60 * 60) < 1) {
+            startIndex = 1;
+        } else if (secDiff / (24 * 60 * 60) < 1) {
+            startIndex = 2;
+        } else if (secDiff / (7 * 24 * 60 * 60) < 1) {
+            startIndex = 3;
+        } else if (secDiff / (6 *  7 * 24 * 60 * 60) < 1) {
+            startIndex = 4;
+        } else if (secDiff / (12 * 6 *  7 * 24 * 60 * 60) < 1) {
+            startIndex = 5;
+        } else {
+            startIndex = 6;
+        }
+        let num;
+        if(startIndex === 0) {
+            num = secDif;
+        } else {
+            num = secDif / a[startIndex - 1];
+        }
+        const b = Math.floor(num);
+        const c = this.toText(startIndex);
+        return b + ' ' + c;
+    }
+
+    renderStatistic() {
+        let result;
+        if(this.state.lastParasiteWordUsed.getFullYear() === 1970) {
+            result = (
+                <View style={styles.daysWithoutContainer}><Text>Тёмная лошадка</Text></View>);
+        } else {
+            result = (
+                <View style={styles.daysWithoutContainer}>
+                    <Text style={styles.daysWithoutDescription}>Следит за базаром</Text>
+                    <Text>{this.getTreeMaxGranylarity()}</Text>
+                </View>
+            );
+        }
+        return result;
+    }
+
     render() {
 
         if (this.state.isLoading) {
@@ -85,7 +203,7 @@ export class Profile extends React.Component {
 
 
         return (
-            <ScrollView>
+            <ScrollView style={{backgroundColor: 'white'}}>
                 <View style={styles.mainLayout}>
                     <View style={styles.avatarWrapper}>
                         <Avatar
@@ -96,15 +214,15 @@ export class Profile extends React.Component {
                         />
                     </View>
                     <View style={styles.personalLayout}>
-                        <Text style={styles.personalInfo}>{this.state.name} {this.state.surName}, {this.state.age} лет</Text>
+                        <Text style={styles.personalInfo}>{this.state.name} {this.state.surName}, {this.state.age} {this.getTextAge(this.state.age)}</Text>
 
                     </View>
                     <View style={styles.description}>
                         <Text style={styles.descriptionText}>{this.state.description}</Text>
                     </View>
 
-                    <View style={styles.daysWithoutContainer}>
-                        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
+                    {this.renderStatistic()}
+                        {/* <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
                             <View style={styles.daysWithoutValueLayout}>
                                 <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center' }}>
                                     <Text style={styles.daysWithoutValue}>{this.state.daysWithout.parasiteWords}</Text>
@@ -126,7 +244,7 @@ export class Profile extends React.Component {
                                 </View>
                             </View>
                         </View>
-                    </View>
+                    </View> */}
                 </View>
             </ScrollView>
         )
