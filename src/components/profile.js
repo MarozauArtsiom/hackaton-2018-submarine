@@ -72,7 +72,7 @@ export class Profile extends React.Component {
                 <View style={styles.mainLayout}>
                     <Avatar
                         rounded
-                        large
+                        avatarStyle={styles.avatar}
                         source={{ uri: this.state.avatarUrl }}
                     />
                     <View style={styles.description}>
@@ -111,6 +111,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     avatar: {
+        width: '35%'
     },
     description: {
         width: '90%',
