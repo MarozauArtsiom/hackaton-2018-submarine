@@ -8,6 +8,7 @@
 
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
+import {LederBoard} from './src/components'
 
 import {Router} from './src';
 
