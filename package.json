@@ -18,6 +18,7 @@
     "babel-jest": "23.6.0",
     "jest": "23.6.0",
     "metro-react-native-babel-preset": "0.48.1",
+    "nodemon": "^1.18.4",
     "react-test-renderer": "16.6.0-alpha.8af6728"
   },
   "jest": {
