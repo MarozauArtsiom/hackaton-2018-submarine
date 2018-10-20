@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { Text, Icon } from 'react-native-elements';
 import Voice from 'react-native-voice';
+import axios from 'axios';
 
 export class Listener extends React.Component {
     constructor(props) {
@@ -9,8 +10,11 @@ export class Listener extends React.Component {
         this.state = {
             isListen: false,
             recording: 'Stopped',
-            partialResults: []
+            partialResults: [],
+            wordCount: ''
         };
+
+        this.REQUEST_POST = 'http://192.168.43.226:6969/check-for-parasite';
 
         Voice.onSpeechStart = this.onSpeechStartHandler.bind(this);
         Voice.onSpeechPartialResults  = this.onSpeechPartialResultsHandler.bind(this);
@@ -41,21 +45,32 @@ export class Listener extends React.Component {
     }
 
     onSpeechPartialResultsHandler(e) {
-        console.log(e.value);
+        let wordsString = e.value[0];
+
         this.setState({
             partialResults: e.value[0]
         });
+
+        //this.httpPost(this.REQUEST_POST, {phrase: wordsString});
     }
 
     onSpeechEndHandler(e) {
+        let wordsString = this.state.partialResults;
+
         this.setState({
             recording: 'Stopped',
             isListen: false
         });
+
+        axios.post(this.REQUEST_POST, {phrase: wordsString}).then((res) => {
+            console.log(res.data);
+            this.setState({
+                wordCount: res.data
+            });
+        }).catch((err) => console.log(err));
     }
 
     render() {
-        let { partialResults } = this.state;
         return (
             <View style={styles.container}>
                 <View style={styles.btnGroup}>
@@ -75,6 +90,7 @@ export class Listener extends React.Component {
                 </View>
                 <Text>{this.state.recording}</Text>
                 <Text>{this.state.partialResults}</Text>
+                <Text>{this.state.wordCount}</Text>
             </View>
         );
     }
