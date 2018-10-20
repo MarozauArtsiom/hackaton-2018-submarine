@@ -37,7 +37,7 @@ class HomeScreen extends React.Component {
 
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white' }}>
-          <Text h2 fontFamily="Galsten">Убей в себе гопника, ёпта!</Text>
+          <Text h4 fontFamily="Galsten">Убей в себе гопника, ёпта!</Text>
           <Image 
                 style={{width: '100%', height: '60%'}}
                 source={{uri: 'https://avatanplus.com/files/resources/mid/588edef0a1872159ee16dc16.png'}}

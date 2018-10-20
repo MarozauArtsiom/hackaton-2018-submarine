@@ -11,7 +11,7 @@ export class Listener extends React.Component {
             isListen: false,
             recording: false,
             partialResults: [],
-            wordCount: '',
+            wordCount: 0,
             isLoading: true
         };
 
@@ -118,7 +118,8 @@ export class Listener extends React.Component {
                     </View>
                     : null
                 }
-                <Text>{this.state.wordCount}</Text>
+                <Text h4>Сказал {this.state.wordCount} матюков</Text>
+                <Text h3>{ this.state.wordCount > 0 ? 'Следи за базаром!!!' : null }</Text>
             </View>
         );
     }
