@@ -79,14 +79,37 @@ export class Profile extends React.Component {
                         />
                     </View>
                     <View style={styles.personalLayout}>
-                        <Text>{this.state.name} {this.state.surName}, {this.state.age}</Text>
+                        <Text style={styles.personalInfo}>{this.state.name} {this.state.surName}, {this.state.age} лет</Text>
+
                     </View>
                     <View style={styles.description}>
                         <Text style={styles.descriptionText}>{this.state.description}</Text>
                     </View>
+
                     <View style={styles.daysWithoutContainer}>
-                        <Text style={styles.daysWithoutDescription}>Days Without parasite words</Text>
-                        <Text>{this.state.daysWithout.parasiteWords}</Text>
+                        <Text style={styles.daysWithoutDescription}>Следишь за базаром</Text>
+                        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
+                            <View style={styles.daysWithoutValueLayout}>
+                                <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center' }}>
+                                    <Text style={styles.daysWithoutValue}>{this.state.daysWithout.parasiteWords}</Text>
+                                    <Text style={styles.daysWithoutGranularity}>Лет</Text>
+                                </View>
+                            </View>
+                            <View style={styles.verticalDelimetr}></View>
+                            <View style={styles.daysWithoutValueLayout}>
+                                <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center' }}>
+                                    <Text style={styles.daysWithoutValue}>{this.state.daysWithout.parasiteWords}</Text>
+                                    <Text style={styles.daysWithoutGranularity}>месяцев</Text>
+                                </View>
+                            </View>
+                            <View style={styles.verticalDelimetr}></View>
+                            <View style={styles.daysWithoutValueLayout}>
+                                <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center' }}>
+                                    <Text style={styles.daysWithoutValue}>{this.state.daysWithout.parasiteWords}</Text>
+                                    <Text style={styles.daysWithoutGranularity}>Дней</Text>
+                                </View>
+                            </View>
+                        </View>
                     </View>
                 </View>
             </ScrollView>
@@ -100,46 +123,74 @@ const styles = StyleSheet.create({
         //flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'white'
+        backgroundColor: 'white',
+        minHeight: '100%'
     },
     avatarWrapper: {
-        width: 250,
-        height: 250,
+        marginTop: 30,
+        width: 270,
+        height: 270,
         borderWidth: 10,
-        borderColor: 'white',
-        borderRadius: 125
+        borderColor: 'gray',
+        borderRadius: 135,
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     avatar: {
     },
     description: {
         width: '90%',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
         marginTop: 15,
         paddingLeft: 30,
         paddingRight: 30,
     },
     descriptionText: {
-        fontSize: 25,
-        color: 'white'
+        fontSize: 17,
+        color: "black"
     },
     personalLayout: {
+        marginTop: 30,
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
     },
     personalInfo: {
-        color: 'white',
-        fontSize: 35
+        color: "black",
+        fontSize: 25
     },
     daysWithoutContainer: {
-        width: '100%'
+        width: '100%',
+        marginTop: 50,
     },
     daysWithoutDescription: {
         fontSize: 15
     },
-    daysWithoutValue: {
-        fontSize: 15
+    daysWithoutValuesContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        height: 90
     },
-    daysWithoutIncrementButton: {
-
+    daysWithoutValueLayout: {
+        width: '30%',
+        height: 90
+    },
+    daysWithoutValue: {
+        fontSize: 25,
+        color: 'black'
+    },
+    daysWithoutGranularity: {
+        color: 'gray',
+        fontSize: 13
+    },
+    verticalDelimetr: {
+        borderWidth: 2,
+        borderColor: 'black',
+        height: 70,
+        width: 0
     }
 })

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Button, Alert, Text, Modal } from 'react-native';
-import { List, ListItem } from 'react-native-elements';
+import { ScrollView, StyleSheet, View, Button, Alert, Text, Modal } from 'react-native';
+import { Avatar, List, ListItem } from 'react-native-elements';
 
 const list = [
   {
@@ -45,26 +45,43 @@ export class LederBoard extends Component {
   }
 
   componentDidMount() {
-    
+
     console.log("componentDidMount");
-    
-    httpGet("http://192.168.43.226:6969/leaders").then((data) => this.setState({leaders: data}));
-    
+
+    httpGet("http://192.168.43.226:6969/leaders").then((data) => {
+      this.setState({ leaders: JSON.parse(data) })
+    });
   }
 
   render() {
+    let { leaders } = this.state;
     return (
-      <List slyle={styles.container}>
-        {
-          list.map((item) => (
-            <ListItem
-              key={item.title}
-              title={item.title}
-              leftIcon={{ name: item.icon }}
-            />
-          ))
-        }
-      </List>
+      <ScrollView>
+        <View style={styles.mainLayout}>
+          <List slyle={styles.container}>
+            {
+              leaders.map((item, index) => (
+                <ListItem
+                  avatar={<Avatar
+                    large
+                    rounded
+                    source={{ uri: item.avatarUrl }}
+                  />}
+                  key={item.id}
+                  
+                  title={
+                    <View>
+                      <Text >{item.name}</Text>
+                      <Text >{item.surName}</Text>
+                    </View>
+                  }
+                  hideChevron
+                />
+              ))
+            }
+          </List>
+        </View>
+      </ScrollView>
     );
   }
 }
