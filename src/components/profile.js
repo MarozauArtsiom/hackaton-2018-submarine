@@ -79,11 +79,13 @@ export class Profile extends React.Component {
                         />
                     </View>
                     <View style={styles.personalLayout}>
-                        <Text>{this.state.name} {this.state.surName}, {this.state.age}</Text>
+                        <Text>{this.state.name} {this.state.surName}, {this.state.age} years old</Text>
+                        
                     </View>
                     <View style={styles.description}>
                         <Text style={styles.descriptionText}>{this.state.description}</Text>
                     </View>
+                    
                     <View style={styles.daysWithoutContainer}>
                         <Text style={styles.daysWithoutDescription}>Days Without parasite words</Text>
                         <Text>{this.state.daysWithout.parasiteWords}</Text>
