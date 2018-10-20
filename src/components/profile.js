@@ -25,7 +25,6 @@ export class Profile extends React.Component {
             }
         };
         this.setUpFetchVariables();
-        this.uploadData();
     }
 
     httpGet(url) {
@@ -51,17 +50,21 @@ export class Profile extends React.Component {
 
     uploadData() {
         const onProfileFetchSuccess = (response) => {
-            const json = response.json();
+            const json = JSON.parse(response);
             const newState = response;
             this.setState(newState);
         }
         const onProfileFetchFailed = (err) => {
             this.setState({});
         }
-        fetch(this.BASE_FETCH_URL + this.PROFILE_FETCH_URL).then(
+        this.httpGet(this.BASE_FETCH_URL + this.PROFILE_FETCH_URL).then(
             onProfileFetchSuccess,
             onProfileFetchFailed
         );
+    }
+
+    componentDidMount() {
+        this.uploadData();
     }
 
     render() {
