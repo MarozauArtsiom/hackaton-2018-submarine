@@ -50,8 +50,7 @@ export class Profile extends React.Component {
 
     uploadData() {
         const onProfileFetchSuccess = (response) => {
-            const json = JSON.parse(response);
-            const newState = response;
+            const newState = JSON.parse(response);
             this.setState(newState);
         }
         const onProfileFetchFailed = (err) => {
@@ -73,8 +72,8 @@ export class Profile extends React.Component {
                 <View style={styles.mainLayout}>
                     <Avatar
                         rounded
-                        medium
-                        source={{ uri: `data:image/png;base64,${this.state.avatarUrl}` }}
+                        large
+                        source={{ uri: this.state.avatarUrl }}
                     />
                     <View style={styles.description}>
                         <Text style={styles.descriptionText}>{this.state.text}</Text>
