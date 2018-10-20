@@ -87,8 +87,21 @@ export class Profile extends React.Component {
                     </View>
                     
                     <View style={styles.daysWithoutContainer}>
-                        <Text style={styles.daysWithoutDescription}>Days Without parasite words</Text>
-                        <Text>{this.state.daysWithout.parasiteWords}</Text>
+                        <Text style={styles.daysWithoutDescription}>Следишь за базаром</Text>
+                        <View style={styles.daysWithoutValuesContainer}>
+                            <Text style={styles.daysWithoutValue}>{this.state.daysWithout.parasiteWords}</Text>
+                            <Text style={styles.daysWithoutGranularity}>Лет</Text>
+                        </View>
+                        <View style={styles.verticalDelimetr}></View>
+                        <View>
+                            <Text style={styles.daysWithoutValue}>{this.state.daysWithout.parasiteWords}</Text>
+                            <Text style={styles.daysWithoutGranularity}>месяцев</Text>
+                        </View>
+                        <View style={styles.verticalDelimetr}></View>
+                        <View>
+                            <Text style={styles.daysWithoutValue}>{this.state.daysWithout.parasiteWords}</Text>
+                            <Text style={styles.daysWithoutGranularity}>Дней</Text>
+                        </View>
                     </View>
                 </View>
             </ScrollView>
@@ -102,7 +115,8 @@ const styles = StyleSheet.create({
         //flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'white'
+        backgroundColor: 'white',
+        minHeight: 100%
     },
     avatarWrapper: {
         marginTop: 30,
@@ -141,15 +155,29 @@ const styles = StyleSheet.create({
         fontSize: 25
     },
     daysWithoutContainer: {
-        width: '100%'
+        width: '100%',
+        marginTop: 50
     },
     daysWithoutDescription: {
         fontSize: 15
     },
-    daysWithoutValue: {
-        fontSize: 15
+    daysWithoutValuesContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: "space-between"
     },
-    daysWithoutIncrementButton: {
-
+    daysWithoutValue: {
+        fontSize: 25,
+        color: 'black';
+    },
+    daysWithoutGranularity: {
+        color: 'gray',
+        fontSize: '13'
+    },
+    verticalDelimetr: {
+        borderWidth: 1,
+        borderColor: 'black',
+        height: 27,
+        width: 0
     }
 })
