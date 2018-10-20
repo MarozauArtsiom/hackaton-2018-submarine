@@ -9,7 +9,7 @@ export class Listener extends React.Component {
         super(props);
         this.state = {
             isListen: false,
-            recording: 'Stopped',
+            recording: false,
             partialResults: [],
             wordCount: ''
         };
@@ -23,6 +23,9 @@ export class Listener extends React.Component {
 
     async onListen() {
         try {
+            this.setState({
+                recording: true
+            });
             Voice.start('ru-RU');
         } catch(err) {
             alert('ERROR');
@@ -32,7 +35,6 @@ export class Listener extends React.Component {
     onSpeechStartHandler(e) {
         this.setState({
             isListen: true,
-            recording: 'Recording',
         });
     }
 
@@ -51,14 +53,13 @@ export class Listener extends React.Component {
             partialResults: e.value[0]
         });
 
-        //this.httpPost(this.REQUEST_POST, {phrase: wordsString});
     }
 
     onSpeechEndHandler(e) {
         let wordsString = this.state.partialResults;
 
         this.setState({
-            recording: 'Stopped',
+            //recording: false,
             isListen: false
         });
 
@@ -74,6 +75,11 @@ export class Listener extends React.Component {
         return (
             <View style={styles.container}>
                 <View style={styles.btnGroup}>
+                    <Text h3 style={{marginBottom: 15}}>
+                        {
+                            this.state.recording ? "Нука ляпни чо" : "Тискани и базарь"
+                        }
+                    </Text>
                     <TouchableOpacity onPress={this.onListen.bind(this)}>
                         <View style={[styles.listenBtn, this.state.isListen ? {borderColor: 'red'} : { borderColor: 'black'}]}>
                             <Icon 
@@ -82,14 +88,19 @@ export class Listener extends React.Component {
                                 color='black'/>
                         </View>
                     </TouchableOpacity>
+                    
+                </View>
+                {
+                    this.state.recording ?
+                    <View>
                     <TouchableOpacity onPress={this.onStopRecord.bind(this)}>
                         <View style={styles.stopBtn}>
-                            <Text>STOP RECORDING</Text>
+                            <Text h2>Стапэ</Text>
                         </View>
                     </TouchableOpacity>
-                </View>
-                <Text>{this.state.recording}</Text>
-                <Text>{this.state.partialResults}</Text>
+                    </View>
+                    : null
+                }
                 <Text>{this.state.wordCount}</Text>
             </View>
         );
@@ -104,7 +115,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     btnGroup: {
-        flex: 0
+        flex: 0,
+        alignItems: 'center',
     },
     listenBtn: {
         flex: 0,
@@ -119,5 +131,9 @@ const styles = StyleSheet.create({
         flex: 0,
         alignItems: 'center',
         marginTop: 25,
+        borderRadius: 10,
+        borderWidth: 2,
+        borderColor: 'black',
+        padding: 10,
     }
 });

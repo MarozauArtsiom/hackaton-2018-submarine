@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     },
     descriptionText: {
         fontSize: 25,
-        color: white
+        color: 'white'
     },
     personalLayout: {
         flex: 1,
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     personalInfo: {
-        color: white,
+        color: 'white',
         fontSize: 35
     },
     daysWithoutContainer: {

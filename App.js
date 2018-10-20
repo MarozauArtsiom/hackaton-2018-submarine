@@ -7,17 +7,34 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
-import {LederBoard} from './src/components'
+import {Platform, StyleSheet, View} from 'react-native';
+import {LederBoard, Login} from './src/components';
+import { Text } from 'react-native-elements';
 
 import {Router} from './src';
 
 
 export default class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+        isLoggedIn: false,
+    }
+  }
+
+  logIn = () => {
+    this.setState({
+      isLoggedIn: true
+    });
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <Router />
+        {
+          this.state.isLoggedIn ? <Router /> : <Login onLogin={this.logIn}/>
+        }
       </View>
     );
   }
@@ -25,7 +42,9 @@ export default class App extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    // justifyContent: 'center',
+    // alignItems: 'center',
   },
   welcome: {
     fontSize: 20,
