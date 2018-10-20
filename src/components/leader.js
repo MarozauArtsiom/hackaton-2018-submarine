@@ -71,7 +71,7 @@ export class LederBoard extends Component {
     }
 
     return (
-      <ScrollView style={{backgroundColor:'blue'}}>
+      <ScrollView style={{backgroundColor:'white'}}>
         <View style={styles.mainLayout}>
           <List slyle={styles.container}>
             {
@@ -92,7 +92,8 @@ export class LederBoard extends Component {
                           <Text style={{ fontSize: 23 }}>{item.surName}</Text>
                         </View>
                         <View>
-                          <Text style={{fontSize: 19}}>{item.daysWithout.parasiteWords}</Text>
+                          <Text style={{fontSize: 15}}>Не матюкается</Text>
+                          <Text style={{fontSize: 23}}>{(item.badWordTimeDif / 3600).toFixed(3)} ч</Text>
                         </View>
                       </View>
                     </View>
