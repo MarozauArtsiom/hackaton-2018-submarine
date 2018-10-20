@@ -68,7 +68,14 @@ export class LederBoard extends Component {
                     source={{ uri: item.avatarUrl }}
                   />}
                   key={item.id}
-                  title={`${item.name} ${item.surName}`}
+                  
+                  title={
+                    <View>
+                      <Text >{item.name}</Text>
+                      <Text >{item.surName}</Text>
+                    </View>
+                  }
+                  hideChevron
                 />
               ))
             }
